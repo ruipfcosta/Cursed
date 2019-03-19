@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Cncurses",
+        "repositoryURL": "/Users/rui/projects/Swift/Cncurses",
+        "state": {
+          "branch": null,
+          "revision": "89148f25a127a0fcec5cf091e692098fd9efa980",
+          "version": "0.0.1"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -1,0 +1,5 @@
+module Cncurses [system] {
+  header "shim.h"
+  link "ncurses"
+  export *
+}
