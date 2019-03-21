@@ -1,6 +1,6 @@
 import Foundation
 
-enum Color: RawRepresentable {    
+public enum Color: RawRepresentable {    
     case black
     case red
     case green
@@ -11,7 +11,7 @@ enum Color: RawRepresentable {
     case white
     case other(Int16)
     
-    init?(rawValue: Int16) {
+    public init?(rawValue: Int16) {
         switch rawValue {
         case 0: self = .black
         case 1: self = .red

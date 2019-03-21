@@ -59,12 +59,11 @@ public class Window {
     }
     
     // Print functions
-    public func print(text: String, at position: Position, refresh: Bool = true) {
-        //init_color(1001, 0, <#T##Int16#>, <#T##Int16#>)
-        init_pair(1, Int16(truncating: NSNumber(value: 3)), Int16(truncating: NSNumber(value: 10)))
-        
-        attron(COLOR_PAIR(1));
+    public func print(text: String, at position: Position, colorPairIndex: Int32, refresh: Bool = true) {
+        let colorPair = COLOR_PAIR(colorPairIndex)
+        attron(colorPair);
         mvwaddstr(window, position.y, position.x, text)
+        attroff(colorPair)
         
         if refresh {
             wrefresh(window)
