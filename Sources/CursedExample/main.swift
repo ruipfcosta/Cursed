@@ -1,14 +1,13 @@
+import Foundation
 import Cursed
-import Cncurses
 
-print("Starting")
+Environment.initialize()
 
-initscr();
+let window = Window.standard
+window.print(text: "Lines: \(Environment.lines)", at: .zero)
+window.print(text: "Columns: \(Environment.columns)", at: Position(x: 0, y: 1))
+window.print(text: "COLORS: \(Environment.colors)", at: Position(x: 0, y: 2))
 
-let w = stdscr
-waddstr(w, "Hello ncurses :)")
-refresh();
+Thread.sleep(forTimeInterval: 3)
 
-sleep(1);
-
-endwin();
+Environment.deinitialize()
