@@ -59,11 +59,20 @@ public class Window {
     }
     
     // Print functions
-    public func print(text: String, at position: Position, colorPairIndex: Int32, refresh: Bool = true) {
-        let colorPair = COLOR_PAIR(colorPairIndex)
-        attron(colorPair);
-        mvwaddstr(window, position.y, position.x, text)
-        attroff(colorPair)
+    public func print(text: String, at position: Position, colorPairIndex: Int32 = 0, refresh: Bool = true) {
+
+        func print(text: String, at position: Position) {
+            mvwaddstr(window, position.y, position.x, text)
+        }
+        
+        if colorPairIndex == 0 {
+            print(text: text, at: position)
+        } else {
+            let colorPair = COLOR_PAIR(colorPairIndex)
+            attron(colorPair);
+            print(text: text, at: position)
+            attroff(colorPair)
+        }
         
         if refresh {
             wrefresh(window)
