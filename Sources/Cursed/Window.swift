@@ -3,19 +3,19 @@ import Cncurses
 
 public class Window {
     
-    private let window: OpaquePointer!
-    
-    init(_ window: OpaquePointer!) {
-        self.window = window
-    }
+    let window: OpaquePointer!
     
     public static var standard: Window {
         return Window(stdscr)
     }
     
-    public static func new(size: Size, at position: Position) -> Window {
+    init(_ window: OpaquePointer!) {
+        self.window = window
+    }
+    
+    public convenience init(size: Size, position: Position) {
         let window = newwin(size.lines, size.columns, position.y, position.x)
-        return Window(window)
+        self.init(window)        
     }
     
     public func refresh() {
@@ -56,6 +56,15 @@ public class Window {
     public func duplicate() -> Window {
         let duplicateWindow = dupwin(window)
         return Window(duplicateWindow)
+    }
+    
+    public func setBackgroundColor(colorPairIndex: Int32 = 0) {
+        guard colorPairIndex > 0 else { return }
+        
+        let colorPair = COLOR_PAIR(colorPairIndex)
+        wbkgd(window, UInt32(colorPair))
+        wbkgdset(window, UInt32(colorPair))
+        refresh()
     }
     
     // Print functions
