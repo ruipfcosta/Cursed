@@ -9,6 +9,13 @@ public class Window {
         return Window(stdscr)
     }
     
+    public var size: Size {
+        let maxY = getmaxy(window)
+        let maxX = getmaxx(window)
+        
+        return Size(lines: maxY, columns: maxX)
+    }
+    
     init(_ window: OpaquePointer!) {
         self.window = window
     }
