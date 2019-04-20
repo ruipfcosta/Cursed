@@ -3,19 +3,19 @@ import Cncurses
 
 public class Window {
     
-    private let window: OpaquePointer!
-    
-    init(_ window: OpaquePointer!) {
-        self.window = window
-    }
+    let window: OpaquePointer!
     
     public static var standard: Window {
         return Window(stdscr)
     }
     
-    public static func new(size: Size, at position: Position) -> Window {
+    init(_ window: OpaquePointer!) {
+        self.window = window
+    }
+    
+    public convenience init(size: Size, position: Position) {
         let window = newwin(size.lines, size.columns, position.y, position.x)
-        return Window(window)
+        self.init(window)        
     }
     
     public func refresh() {
