@@ -58,11 +58,32 @@ public class Window {
         return Window(duplicateWindow)
     }
     
-    // Print functions
-    public func print(text: String, at position: Position, colorPairIndex: Int32, refresh: Bool = true) {
+    public func setBackgroundColor(colorPairIndex: Int32 = 0) {
+        guard colorPairIndex > 0 else { return }
+        
         let colorPair = COLOR_PAIR(colorPairIndex)
-        attron(colorPair);
-        mvwaddstr(window, position.y, position.x, text)
+        wbkgd(window, UInt32(colorPair))
+        wbkgdset(window, UInt32(colorPair))
+        refresh()
+    }
+    
+    // Print functions
+    public func print(text: String, at position: Position, attributes: Attributes = [], colorPairIndex: Int32 = 0, refresh: Bool = true) {
+
+        func print(text: String, at position: Position) {
+            mvwaddstr(window, position.y, position.x, text)
+        }
+        
+        // Activate attributes
+        wattron(window, attributes.rawValue)
+        
+        let colorPair = COLOR_PAIR(colorPairIndex)
+        attron(colorPair)
+        
+        print(text: text, at: position)
+        
+        // Deactivate attributes
+        wattroff(window, attributes.rawValue)
         attroff(colorPair)
         
         if refresh {
