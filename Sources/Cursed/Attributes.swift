@@ -1,12 +1,6 @@
 import Foundation
 
-public struct Attributes: OptionSet {   
-    public let rawValue: Int32
-
-    public init(rawValue: Int32) {
-        self.rawValue = rawValue
-    }
-    
+public struct Attributes: OptionSet {
     public static let normal = Attributes(rawValue: 0)
     public static let attributes = Attributes(rawValue: ncursesBits(mask: ~0, shift: 0))
     public static let charText = Attributes(rawValue: ncursesBits(mask: 1, shift: 0) - 1)
@@ -26,6 +20,12 @@ public struct Attributes: OptionSet {
     public static let right = Attributes(rawValue: ncursesBits(mask: 1, shift: 20))
     public static let top = Attributes(rawValue: ncursesBits(mask: 1, shift: 21))
     public static let vertical = Attributes(rawValue: ncursesBits(mask: 1, shift: 22))
+    
+    public let rawValue: Int32
+    
+    public init(rawValue: Int32) {
+        self.rawValue = rawValue
+    }
     
     private static func ncursesBits(mask: Int32, shift: Int) -> Int32 {
         return mask << (8 + shift)
