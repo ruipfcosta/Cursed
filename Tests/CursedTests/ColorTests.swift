@@ -7,8 +7,8 @@ final class ColorTests: XCTestCase {
         let pair1 = ColorPair(foregroundColor: .red, backgroundColor: .blue)
         let pair2 = ColorPair(foregroundColor: .red, backgroundColor: .blue) // same as pair1
         
-        let index1 = Color.createPair(pair1)
-        let index2 = Color.createPair(pair2)
+        let index1 = Color.setPair(pair1)
+        let index2 = Color.setPair(pair2)
         
         XCTAssertEqual(index1, index2)
     }
@@ -17,8 +17,8 @@ final class ColorTests: XCTestCase {
         let pair1 = ColorPair(foregroundColor: .red, backgroundColor: .blue)
         let pair2 = ColorPair(foregroundColor: .white, backgroundColor: .green)
         
-        let index1 = Color.createPair(pair1)
-        let index2 = Color.createPair(pair2)
+        let index1 = Color.setPair(pair1)
+        let index2 = Color.setPair(pair2)
         
         XCTAssertNotEqual(index1, index2)
     }

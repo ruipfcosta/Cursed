@@ -58,7 +58,7 @@ public enum Color: RawRepresentable, Equatable {
     private static var colorPairs: [Int16 : ColorPair] = [:]
     
     @discardableResult
-    public static func createPair(_ newPair: ColorPair) -> Int16 {
+    public static func setPair(_ newPair: ColorPair) -> Int16 {
         if let existingPair = colorPairs.first(where: { $0.value == newPair }) {
             return existingPair.key
         } else {
