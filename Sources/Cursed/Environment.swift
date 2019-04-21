@@ -3,7 +3,7 @@ import Cncurses
 
 public struct Environment {
        
-    public static func initialize() {
+    public static func start() {
         initscr()
         start_color()
         cbreak()
@@ -11,7 +11,7 @@ public struct Environment {
         keypad(stdscr, true)
     }
     
-    public static func deinitialize() {
+    public static func end() {
         endwin()
     }
     
