@@ -2,6 +2,8 @@ import Foundation
 import Cncurses
 
 public class Keyboard {
+    
+    @discardableResult
     public static func readKey() -> Key {
         let code = getch()
         return Key(code: code)
