@@ -1,8 +1,13 @@
 import Foundation
 
-struct ColorPair: Equatable {
-    let foregroundColor: Color
-    let backgroundColor: Color
+public struct ColorPair: Equatable {
+    public let foregroundColor: Color
+    public let backgroundColor: Color
+    
+    public init(foregroundColor: Color, backgroundColor: Color) {
+        self.foregroundColor = foregroundColor
+        self.backgroundColor = backgroundColor
+    }
 }
 
 public enum Color: RawRepresentable, Equatable {
@@ -53,16 +58,13 @@ public enum Color: RawRepresentable, Equatable {
     private static var colorPairs: [Int16 : ColorPair] = [:]
     
     @discardableResult
-    public static func createPair(foregroundColor: Color, backgroundColor: Color) -> Int16 {
-        
-        let newPair = ColorPair(foregroundColor: foregroundColor, backgroundColor: backgroundColor)
-        
+    public static func createPair(_ newPair: ColorPair) -> Int16 {
         if let existingPair = colorPairs.first(where: { $0.value == newPair }) {
             return existingPair.key
         } else {
             let newIndex = currentPairIndex
             colorPairs[newIndex] = newPair
-            init_pair(newIndex, foregroundColor.rawValue, backgroundColor.rawValue)
+            init_pair(newIndex, newPair.foregroundColor.rawValue, newPair.backgroundColor.rawValue)
             currentPairIndex += 1
             
             return newIndex

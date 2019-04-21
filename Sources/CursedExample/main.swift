@@ -2,11 +2,10 @@ import Foundation
 import Cursed
 
 Environment.initialize()
-Environment.setColorPairs([
-    1: (foreground: Color.red, background: Color.blue),
-    2: (foreground: Color.green, background: Color.white),
-    3: (foreground: Color.white, background: Color.magenta)])
 
+Color.createPair(ColorPair(foregroundColor: Color.red, backgroundColor: Color.blue))
+Color.createPair(ColorPair(foregroundColor: Color.green, backgroundColor: Color.white))
+Color.createPair(ColorPair(foregroundColor: Color.white, backgroundColor: Color.magenta))
 let window = Window.standard
 window.print(text: "Lines: \(Environment.lines)", at: .zero, colorPairIndex: 1)
 window.print(text: "Columns: \(Environment.columns)", at: Position(x: 0, y: 1), colorPairIndex: 2)
