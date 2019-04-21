@@ -1,6 +1,11 @@
 import Foundation
 
-public enum Color: RawRepresentable {    
+struct ColorPair: Equatable {
+    let foregroundColor: Color
+    let backgroundColor: Color
+}
+
+public enum Color: RawRepresentable, Equatable {
     case black
     case red
     case green
@@ -10,6 +15,16 @@ public enum Color: RawRepresentable {
     case cyan
     case white
     case other(Int16)
+    
+    private static var currentPairIndex: Int16 = 1
+    private static var colorPairs: [Int16 : ColorPair] = [:]
+    
+    public static func createPair(foregroundColor: Color, backgroundColor: Color) {
+        let pair = ColorPair(foregroundColor: foregroundColor, backgroundColor: backgroundColor)
+        colorPairs[currentPairIndex] = pair
+        init_pair(currentPairIndex, foregroundColor.rawValue, backgroundColor.rawValue)
+        currentPairIndex += 1
+    }
     
     public init?(rawValue: Int16) {
         switch rawValue {
