@@ -16,16 +16,6 @@ public enum Color: RawRepresentable, Equatable {
     case white
     case other(Int16)
     
-    private static var currentPairIndex: Int16 = 1
-    private static var colorPairs: [Int16 : ColorPair] = [:]
-    
-    public static func createPair(foregroundColor: Color, backgroundColor: Color) {
-        let pair = ColorPair(foregroundColor: foregroundColor, backgroundColor: backgroundColor)
-        colorPairs[currentPairIndex] = pair
-        init_pair(currentPairIndex, foregroundColor.rawValue, backgroundColor.rawValue)
-        currentPairIndex += 1
-    }
-    
     public init?(rawValue: Int16) {
         switch rawValue {
         case 0: self = .black
@@ -55,6 +45,27 @@ public enum Color: RawRepresentable, Equatable {
         case .cyan:              return 6
         case .white:             return 7
         case .other(let value):  return value
+        }
+    }
+    
+    // Color pairs
+    private static var currentPairIndex: Int16 = 1
+    private static var colorPairs: [Int16 : ColorPair] = [:]
+    
+    @discardableResult
+    public static func createPair(foregroundColor: Color, backgroundColor: Color) -> Int16 {
+        
+        let newPair = ColorPair(foregroundColor: foregroundColor, backgroundColor: backgroundColor)
+        
+        if let existingPair = colorPairs.first(where: { $0.value == newPair }) {
+            return existingPair.key
+        } else {
+            let newIndex = currentPairIndex
+            colorPairs[newIndex] = newPair
+            init_pair(newIndex, foregroundColor.rawValue, backgroundColor.rawValue)
+            currentPairIndex += 1
+            
+            return newIndex
         }
     }
 }
