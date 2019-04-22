@@ -2,10 +2,10 @@ import Foundation
 import Cursed
 
 class HelloWorld {
-    static func run() {
+    func run() {
         Environment.start()
         let window = Window.standard
-        window.print(text: "Hello World!", at: .zero)
+        window.print("Hello World!", at: .zero)
         Keyboard.readKey()
         Environment.end()
     }
