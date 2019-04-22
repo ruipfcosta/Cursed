@@ -24,7 +24,7 @@ class Life {
     
     func run() {
         Environment.start()
-        timeout(300)
+        Window.standard.timeout(delay: 300)
         
         // Initialize workarea
         var workarea: Area = Array(repeating: Array(repeating: State(old: 0, new: 0), count: lines), count: columns)

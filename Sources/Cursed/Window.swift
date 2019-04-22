@@ -106,4 +106,8 @@ public class Window {
             wrefresh(window)
         }
     }
+    
+    public func timeout(delay: Int32) {
+        Cncurses.wtimeout(window, delay)
+    }
 }
