@@ -15,6 +15,15 @@ public struct Environment {
         endwin()
     }
     
+    public static func save() {
+        def_prog_mode()
+    }
+    
+    public static func restore() {
+        reset_prog_mode()
+        Window.standard.refresh()
+    }
+    
     public static var lines: Int32 {
         return LINES
     }
