@@ -16,6 +16,13 @@ public class Window {
         return Size(lines: maxY, columns: maxX)
     }
     
+    public var cursorPosition: Position {
+        let cursorX = getcurx(window)
+        let cursorY = getcury(window)
+        
+        return Position(x: cursorX, y: cursorY)
+    }
+    
     init(_ window: OpaquePointer!) {
         self.window = window
     }
@@ -75,11 +82,13 @@ public class Window {
     }
     
     // Print functions
-    public func print(text: String, at position: Position, attributes: Attributes = [], colorPairIndex: Int32 = 0, refresh: Bool = true) {
+    public func print(_ text: String, at position: Position? = .none, attributes: Attributes = [], colorPairIndex: Int32 = 0, refresh: Bool = true) {
 
         func print(text: String, at position: Position) {
             mvwaddstr(window, position.y, position.x, text)
         }
+        
+        let at = position ?? cursorPosition
         
         // Activate attributes
         wattron(window, attributes.rawValue)
@@ -87,7 +96,7 @@ public class Window {
         let colorPair = COLOR_PAIR(colorPairIndex)
         attron(colorPair)
         
-        print(text: text, at: position)
+        print(text: text, at: at)
         
         // Deactivate attributes
         wattroff(window, attributes.rawValue)
