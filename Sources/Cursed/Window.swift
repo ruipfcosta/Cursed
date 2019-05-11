@@ -120,8 +120,10 @@ public class Window {
         refresh()
     }
     
-    public func setBorder(character ch: UnicodeScalar) {
-        wborder(window, ch.value, ch.value, ch.value, ch.value, ch.value, ch.value, ch.value, ch.value)
+    public func setBorder(character: Character) {
+        let value = character.unicodeScalars.map { $0.value }.reduce(0, +)
+        
+        wborder(window, value, value, value, value, value, value, value, value)
         refresh()
     }
     
