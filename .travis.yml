@@ -1,0 +1,11 @@
+os:
+  - osx
+osx_image: xcode10.2
+install: swift package update
+script:
+  - swift build
+  - swift test
+addons:
+  homebrew:
+    packages:
+    - ncurses
