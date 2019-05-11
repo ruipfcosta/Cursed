@@ -1,12 +1,32 @@
-language: swift
-os:
-  - osx
-osx_image: xcode10.2
-install: swift package update
-script:
-  - swift build
-  - swift test
-addons:
-  homebrew:
-    packages:
-    - ncurses
+matrix:
+  include:
+    - os: linux
+      language: generic
+      dist: xenial
+      sudo: required
+      before_install:
+        - wget -q -O - https://swift.org/keys/all-keys.asc | gpg --import -
+        - wget https://swift.org/builds/swift-5.0.1-release/ubuntu1604/swift-5.0.1-RELEASE/swift-5.0.1-RELEASE-ubuntu16.04.tar.gz
+        - tar xzf swift-5.0.1-RELEASE-ubuntu16.04.tar.gz
+        - export PATH="$(pwd)/swift-5.0.1-RELEASE-ubuntu16.04/usr/bin:$PATH"
+      install: swift package update
+      script:
+        - swift build
+        - swift test
+      addons:
+        apt:
+          packages:
+          - libncurses-dev
+
+    - os: osx
+      osx_image: xcode10.2
+      language: swift
+      sudo: required
+      install: swift package update
+      script:
+        - swift build
+        - swift test
+      addons:
+        homebrew:
+          packages:
+          - ncurses
