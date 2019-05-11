@@ -1,3 +1,3 @@
 import Foundation
 
-Life().run()
+WinBorder().run()

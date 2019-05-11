@@ -110,4 +110,19 @@ public class Window {
     public func timeout(delay: Int32) {
         Cncurses.wtimeout(window, delay)
     }
+    
+    public func destroy() {
+        delwin(window)
+    }
+    
+    public func box() {
+        Cncurses.box(window, 0, 0)
+        refresh()
+    }
+    
+    public func setBorder(character ch: UnicodeScalar) {
+        wborder(window, ch.value, ch.value, ch.value, ch.value, ch.value, ch.value, ch.value, ch.value)
+        refresh()
+    }
+    
 }
